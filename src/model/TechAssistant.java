@@ -19,7 +19,7 @@ public class TechAssistant extends Trainer{
 	}
 	
 		@Override
-	public String getEmployersInfo(int expertiseI){
+	public String getEmployersInfo(){
 		String temp;
 		temp="*******************************************\n";
 		temp+="***** "+getName()+"\n";

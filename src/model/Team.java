@@ -17,6 +17,11 @@ public class Team{
 		lineUp=new ArrayList<LineUp>();
 	}
 	
+	public String getNameMainTrainer(MainTrainer maintrain){
+		String temp=maintrain.getName();
+		return temp;
+	}
+	
 	public int getILineUp(){
 		return iLineUp;
 	}
@@ -62,7 +67,6 @@ public class Team{
 	}
 	
 	public boolean addFootballer(Footballer player){
-		boolean temp=false;
 		if(!existFootballer(player)){
 			for(int i=0;i<footballer.length;i++){
 				if(footballer[i]==null){
@@ -121,7 +125,7 @@ public class Team{
 		String info="";
 		temp+="*****************TEAM*****************\n";
 		temp+="*** Team name: "+getName()+"\n";
-		temp+="*** Main trainer: "+getMainTrainer.getName()+"\n";
+		temp+="*** Main trainer: "+getMainTrainer().getName()+"\n";
 		for(int i=0;i<techAssistant.length;i++){
 			info+= "\n"+techAssistant[i].getName()+"\n";
 		}
@@ -137,6 +141,15 @@ public class Team{
 			if(footballer[i]!=null){
 			temp+="\n"+footballer[i].getName()+" Number: "+footballer[i].getNumberT();
 				
+			}
+		}
+		return temp;
+	}
+	public String getAssisstantInfo(){
+		String temp="*************Assisstant*********************\n";
+		for(int i=0;i<techAssistant.length;i++){
+			if(techAssistant[i]!=null){
+				temp+="\n"+techAssistant[i].getEmployersInfo()+"\n";
 			}
 		}
 		return temp;

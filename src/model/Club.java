@@ -144,64 +144,188 @@ public class Club{
 		return temp;
 	}
 	
-	public void initializingTeam(){
-		Team team(String name, MainTrainer mainTrainer);
+	public String showAllTeams(){
+		String temp="";
 		
-	}
-	public void initializingTeam(){
-		System.out.println("Now creating the Team");
-		System.out.println("Tell us the team name");
-		String nameT=sc.nextLine();
-		System.out.println("Now tell us the main trainer name");
-		String trainerName=sc.nextLine();
-		System.out.println("Now tell us the main trainer ID");
-		String ID=sc.nextLine();
-		sc.nextLine();
-		System.out.println("Now tell us the main trainer salary");
-		double salary=sc.nextDouble();
-		System.out.println("Now tell us if the main trainer is active put 1 or is the main traner isn't active put 2");
-		int decision=sc.nextInt();
-		boolean state=false;
-		if(decision==1){
-			state=true;
+		temp+="**********************Teams************************\n";
+		for(int i=0;i<team.length:i++){
+		if(team[i]!=null){
+			temp+=team[i].getTeamInfo();
+			temp+=team[i].getFootballersInfo();
+			temp+=team[i].getLineUpInformation();
+			temp+=team[i].getFormationMatrix();
+			
 		}
-		System.out.println("Now tell us how many experience years have the main trainer");
-		int experienceYears=sc.nextInt();
-		System.out.println("Now tell us how many teams have been guide by the main trainer");
-		int teamss=sc.nextInt();
-		System.out.println("Now tell us how many championships have the main trainer");
-		int championships=sc.nextInt();
-		MainTrainer mainTrainer=new MainTrainer(trainerName,ID, salary, state, experienceYears, championships);
-		Team team=new Team(nameT,mainTrainer);
-
-	} 
+		}
+		return temp;
+	}
 	
-	/**public String addPlayer(Player playerToAdd, boolean team){
-        space = false;
-        for(int i = 0; i < column && !space; i++){
-            for(int j = 0; j < row !space ; j++){
-                if(userTeam == team){
-                    if(lockerRoom[i][j-1] != 1 && lockerRoom[i-1][j] != 1){
+	public boolean startTeam(String name, MainTrainer mainTrainer){
+		for(int i=0;i<team.length;i++){
+			if(team[i]==null){
+				team[i]=new Team(name, mainTrainer);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public int findPlayer(String name){
+		int index;
+		for(int i=0; i<iFootballer;i++){
+			if(name.equalsIgnoreCase(footballer[i].getName())){
+				index=i;
+			}
+		}
+		if(!(index>-1)){
+			index=-1;
+		}
+		return index;
+	}
+	
+	public int findTrainer(String name){
+		int index;
+		for(int i=0;i<iTrainer;i++){
+			if(name.equalsIgnoreCase(trainer[i].getName())){
+				index=i;
+			}
+		}
+		if(!(index>-1)){
+			index=-1;
+		}
+		return index;
+	}
+	
+	public int findAssisstant(String name){
+		int index;
+		for(int i=0;i<iAssisstant;i++){
+			if(name.equalsIgnoreCase(assisstants[i].getName())){
+				index=i;
+			}
+		}
+		if(!(index>-1)){
+			index=-1;
+		}
+		return index;
+	}
+	
+	public Footballer findPIndex(int index){
+		Footballer player;
+		for(int i=0;i<iFootballer;I++){
+			if(footballer[index]==footballer[i]){
+				player=footballer[i];
+				
+			}
+			else{
+				player=null;
+			}
+		}
+	return player;
+	}
+	
+	public MainTrainer findMTIndex(int index){
+		MainTrainer maTrainer;
+		for(int i=0; i<iTrainer;i++){
+			if(trainers[index]==trainers[i]){
+				maTrainer=trainers[i];
+			}
+			else{
+				maTrainer=null;
+			}
+		}
+		return maTrainer;
+	}
+	
+	public TechAssistant findAIndex(int index){
+		TechAssistant assisstantT;
+		for(int i=0;i<iAssisstant;i++){
+			if(assisstants[index]==assisstants[i]){
+				assisstantT=assisstants[i];
+			}
+			else{
+				assisstantT=null;
+			}
+		}
+		return assisstantT;
+	}
+	public int findTeam(String nameT){
+		int index;
+		for(int i=0;i<team.length;i++){
+			if(name.equalsIgnoreCase(team[i].getName())){
+				index=i;
+			}
+		}
+		if(!(index>-1)){
+			index=-1;
+		}
+		return index;
+	}
+	
+	public Team getTeam(String nameT){
+		int index=findTeam(nameT);
+		Team team=team[index];
+		return team;
+	}
+	
+	public boolean addPlayerToATeam(String name, String nameT){
+		int temp=findPlayer(name);
+		Footballer player=findPIndex(int temp);
+		int index=findTeam(nameT);
+		if(team[index].addFootballer(player)){
+			return true;
+		}
+			return false;
+		}
+		
+	public boolean addAssisstantToTeam(String name, String nameT){
+		int temp=findAssisstant(name);
+		TechAssistant techAssisstant=findAIndex(int temp);
+		int index=findTeam(nameT);
+		if(team[index].addTechAssisstant(techAssisstant)){
+			return true;
+		}
+			return false;
+		}
+		
+		public boolean addLineUpToTeam(String nameT, LineUp lineUp){
+		int temp=findTeam(nameT);
+		if(team[temp].addLineUP(lineUp)){
+			return true;
+		}
+		return false;
+		
+		}
+		
+		public boolean fireAFootballer(int index)){
+			if(index!=-1){
+				footballers.get(index).remove();
+				return true;
+			}
+			return false;
+		}
+		
+		public boolean fireAnAssisstant(int index)){
+			if(index!=-1){
+				assisstants.get(index).remove();
+				return true;
+			}
+			return false;
+		}
+		
+		public boolean fireATrainer(int index)){
+			if(index!=-1){
+				trainers.get(index).remove();
+				return true;
+			}
+			return false;
+		}
+	
 
-                        lockerRoom[i][j+1] = 0;
-                        lockerRoom[i+1][j] = 0;
 
-                        lockerRoom[i][j] = 1;
-
-                        space = true;
-                        msg = "Jugador añadido correctamente.";
-                    }
-                    else{
-                        msg = "No hay espacio suficiente.";
-                    }
-                }
-                else{
-                    msg = "El jugador es de un equipo distinto al equipo que ya lo está usando.";
-                }
-            }
-        }
-        return msg;
-    }
-	*/
+	}
+	
+	
+	
+	
 	
 }
