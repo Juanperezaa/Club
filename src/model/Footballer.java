@@ -43,7 +43,7 @@ public class Footballer extends Employers{
 	}
 	
 	@Override
-	public String getEmployersInfo(int positionI){
+	public String getEmployersInfo(){
 		String temp;
 		temp="*******************************************\n";
 		temp+="***** "+getName()+"\n";

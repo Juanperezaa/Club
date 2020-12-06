@@ -1,5 +1,5 @@
 package model;
-public abstract class Trainer extends Employer{
+public abstract class Trainer extends Employers{
 	private int experienceYears;
 	
 	public Trainer(String name, String iD, double salary, boolean state, int experienceYears){
@@ -14,6 +14,6 @@ public abstract class Trainer extends Employer{
 		this.experienceYears=experienceYears;
 	}
 	
-	public abstract String getEmployersInfo();
+	
 	
 }

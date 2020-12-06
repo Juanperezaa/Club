@@ -1,9 +1,9 @@
 package model;
-public class MainTrainer extends Trainer{
+public class MainTrainer extends Trainer implements Calculate{
 	private int teamNumbers;
 	private int championships;
 	
-	public MainTrainer(String name, String iD, String salary, boolean state, int experienceYears, int teamNumbers, int championships){
+	public MainTrainer(String name, String iD, double salary, boolean state, int experienceYears, int teamNumbers, int championships){
 		super(name,iD,salary,state,experienceYears);
 		this.teamNumbers=teamNumbers;
 		this.championships=championships;
@@ -25,8 +25,9 @@ public class MainTrainer extends Trainer{
 		this.championships=championships;
 	}
 	
+	
 	@Override
-	public String getEmployersInfo(int positionI){
+	public String getEmployersInfo(){
 		String temp;
 		temp="*******************************************\n";
 		temp+="***** "+getName()+"\n";
