@@ -16,6 +16,9 @@ public class Club{
 	private int[][] trainersOffice;
 	
 	public Club(String name, String NIT, String foundationDate){
+		this.name=name;
+		this.NIT=NIT;
+		this.foundationDate=foundationDate;
 		trainers=new ArrayList<MainTrainer>();
 		assisstants=new ArrayList<TechAssistant>();
 		footballers=new ArrayList<Footballer>();
@@ -70,11 +73,11 @@ public class Club{
 		return foundationDate; 
 	}
 	
-	public boolean contractEmployer(String nameE, String iD, double salary, boolean state, int experienceYears, int teamNumbers, int championships){
+	public void contractEmployer(String nameE, String iD, double salary, boolean state, int experienceYears, int teamNumbers, int championships){
 		MainTrainer mTrainer= new MainTrainer(nameE, iD, salary, state, experienceYears, teamNumbers, championships);
 		trainers.add(mTrainer);
 		iTrainer++;
-		return true;
+		
 	}
 	
 	public boolean contractEmployer(String name, String iD, double salary, boolean state, int experienceYears, boolean pastPlayer, int expertiseI){
@@ -105,7 +108,7 @@ public class Club{
 		temp+="****************Trainers****************\n";
 		if(!(trainers.isEmpty())){
 			for(int i=0;i<iTrainer;i++){
-			temp+="\n Trainer: "+trainers[i].getName();
+			temp+="\n Trainer: "+trainers.get(i).getName();
 				
 			}
 		}
@@ -121,7 +124,7 @@ public class Club{
 		temp+="***************Footballers***************\n";
 		if(!(footballers.isEmpty())){
 			for(int i=0;i<iFootballer;i++){
-				temp+="\n Footballer: "+footballers[i].getName();
+				temp+="\n Footballer: "+footballers.get(i).getName();
 			}
 		}
 		else{
@@ -135,7 +138,7 @@ public class Club{
 		temp+="*******************Assisstants*******************";
 		if(!(assisstants.isEmpty())){
 			for(int i=0;i<iAssisstant;i++){
-				temp+="*Trainer assisstant: "+assisstants[i].getName();
+				temp+="*Trainer assisstant: "+assisstants.get(i).getName();
 			}
 		}
 		else{
@@ -148,12 +151,11 @@ public class Club{
 		String temp="";
 		
 		temp+="**********************Teams************************\n";
-		for(int i=0;i<team.length:i++){
+		for(int i=0;i<team.length;i++){
 		if(team[i]!=null){
 			temp+=team[i].getTeamInfo();
 			temp+=team[i].getFootballersInfo();
-			temp+=team[i].getLineUpInformation();
-			temp+=team[i].getFormationMatrix();
+			temp+="\n"+team[i].getLineUpInformation();
 			
 		}
 		}
@@ -171,105 +173,92 @@ public class Club{
 	}
 	
 	public int findPlayer(String name){
-		int index;
+		int index=-1;
 		for(int i=0; i<iFootballer;i++){
-			if(name.equalsIgnoreCase(footballer[i].getName())){
+			if(name.equalsIgnoreCase(footballers.get(i).getName())){
 				index=i;
 			}
 		}
-		if(!(index>-1)){
-			index=-1;
-		}
+		
 		return index;
 	}
 	
 	public int findTrainer(String name){
-		int index;
+		int index=-1;
 		for(int i=0;i<iTrainer;i++){
-			if(name.equalsIgnoreCase(trainer[i].getName())){
+			if(name.equalsIgnoreCase(trainers.get(i).getName())){
 				index=i;
 			}
 		}
-		if(!(index>-1)){
-			index=-1;
-		}
+		
 		return index;
 	}
 	
 	public int findAssisstant(String name){
-		int index;
+		int index=-1;
 		for(int i=0;i<iAssisstant;i++){
-			if(name.equalsIgnoreCase(assisstants[i].getName())){
+			if(name.equalsIgnoreCase(assisstants.get(i).getName())){
 				index=i;
 			}
 		}
-		if(!(index>-1)){
-			index=-1;
-		}
+		
 		return index;
 	}
 	
 	public Footballer findPIndex(int index){
 		Footballer player;
-		for(int i=0;i<iFootballer;I++){
-			if(footballer[index]==footballer[i]){
-				player=footballer[i];
-				
+			if(index!=-1){
+				player=footballers.get(index);	
 			}
 			else{
 				player=null;
 			}
-		}
 	return player;
 	}
 	
 	public MainTrainer findMTIndex(int index){
 		MainTrainer maTrainer;
-		for(int i=0; i<iTrainer;i++){
-			if(trainers[index]==trainers[i]){
-				maTrainer=trainers[i];
+			if(index!=-1){
+				maTrainer=trainers.get(index);
 			}
 			else{
 				maTrainer=null;
 			}
-		}
 		return maTrainer;
 	}
 	
 	public TechAssistant findAIndex(int index){
 		TechAssistant assisstantT;
-		for(int i=0;i<iAssisstant;i++){
-			if(assisstants[index]==assisstants[i]){
-				assisstantT=assisstants[i];
+			if(index!=-1){
+				assisstantT=assisstants.get(index);
 			}
 			else{
 				assisstantT=null;
 			}
-		}
 		return assisstantT;
 	}
 	public int findTeam(String nameT){
-		int index;
+		int index=-1;
 		for(int i=0;i<team.length;i++){
-			if(name.equalsIgnoreCase(team[i].getName())){
-				index=i;
+			if(team[i]!=null){
+					if(nameT.equalsIgnoreCase(team[i].getName())){
+						index=i;
+					}
 			}
 		}
-		if(!(index>-1)){
-			index=-1;
-		}
+		
 		return index;
 	}
 	
 	public Team getTeam(String nameT){
 		int index=findTeam(nameT);
-		Team team=team[index];
-		return team;
+		Team teaam=team[index];
+		return teaam;
 	}
 	
 	public boolean addPlayerToATeam(String name, String nameT){
 		int temp=findPlayer(name);
-		Footballer player=findPIndex(int temp);
+		Footballer player=findPIndex(temp);
 		int index=findTeam(nameT);
 		if(team[index].addFootballer(player)){
 			return true;
@@ -279,7 +268,7 @@ public class Club{
 		
 	public boolean addAssisstantToTeam(String name, String nameT){
 		int temp=findAssisstant(name);
-		TechAssistant techAssisstant=findAIndex(int temp);
+		TechAssistant techAssisstant=findAIndex(temp);
 		int index=findTeam(nameT);
 		if(team[index].addTechAssisstant(techAssisstant)){
 			return true;
@@ -289,32 +278,34 @@ public class Club{
 		
 		public boolean addLineUpToTeam(String nameT, LineUp lineUp){
 		int temp=findTeam(nameT);
+		if(temp!=-1){
 		if(team[temp].addLineUP(lineUp)){
 			return true;
+		}
 		}
 		return false;
 		
 		}
 		
-		public boolean fireAFootballer(int index)){
+		public boolean fireAFootballer(int index){
 			if(index!=-1){
-				footballers.get(index).remove();
+				footballers.remove(index);
 				return true;
 			}
 			return false;
 		}
 		
-		public boolean fireAnAssisstant(int index)){
+		public boolean fireAnAssisstant(int index){
 			if(index!=-1){
-				assisstants.get(index).remove();
+				assisstants.remove(index);
 				return true;
 			}
 			return false;
 		}
 		
-		public boolean fireATrainer(int index)){
+		public boolean fireATrainer(int index){
 			if(index!=-1){
-				trainers.get(index).remove();
+				trainers.remove(index);
 				return true;
 			}
 			return false;
@@ -328,4 +319,3 @@ public class Club{
 	
 	
 	
-}

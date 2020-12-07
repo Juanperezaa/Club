@@ -25,9 +25,24 @@ public class MainTrainer extends Trainer implements Calculate{
 		this.championships=championships;
 	}
 	
+	@Override
+	public double calculatePrice(){
+		double price = (getSalary()*10)+(getExperienceYears()*100)+(getChampionships()*50);
+		return price;
+	}
+	
+	@Override
+	public double calculateLevel(){
+		double level = 5+(getChampionships()/10);
+		return level;
+	}
+	
+	
 	
 	@Override
 	public String getEmployersInfo(){
+		double salaryy=calculatePrice();
+		double levell=calculateLevel();
 		String temp;
 		temp="*******************************************\n";
 		temp+="***** "+getName()+"\n";
@@ -36,8 +51,12 @@ public class MainTrainer extends Trainer implements Calculate{
 		temp+="***** State: "+getState()+"\n";
 		temp+="***** Experience years: "+getExperienceYears()+"\n";
 		temp+="***** Teams: "+getTeamNumbers()+"\n";
-		temp+="***** Championships: "+getChampionships();
+		temp+="***** Championships: "+getChampionships()+"\n";
+		temp+="***** Salary: "+salaryy+" $\n";
+		temp+="***** Level: "+levell;
+		
 		
 		return temp;
 	}
+	
 }

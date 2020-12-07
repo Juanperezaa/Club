@@ -47,13 +47,6 @@ public class Team{
 		return mainTrainer;
 	}
 	
-	public LineUp getLineUp(){
-		return lineUp;
-	}
-	
-	public void setLineUp(LineUp lineUp){
-		this.lineUp=lineUp;
-	}
 	
 	public boolean existFootballer(Footballer player){
 		boolean temp=false;
@@ -64,6 +57,7 @@ public class Team{
 				}
 			}
 		}
+		return false;
 	}
 	
 	public boolean addFootballer(Footballer player){
@@ -87,6 +81,7 @@ public class Team{
 				}
 			}
 		}
+		return false;
 	}
 	
 	public boolean addTechAssisstant(TechAssistant player){
@@ -105,7 +100,7 @@ public class Team{
 	public boolean existLineUp(LineUp player){
 		if(!(lineUp.isEmpty())){
 				for(int i=0;i<iLineUp;i++){
-					if(player.getFormationIndicator().equals(lineUp[i].getFormationIndicator()))
+					if(player.getFormationIndicator().equals(lineUp.get(i).getFormationIndicator()))
 						return true;
 				}
 		}
@@ -116,6 +111,7 @@ public class Team{
 		if(!existLineUp(player)){
 			lineUp.add(player);
 			iLineUp++;
+			return true;
 		}
 		return false;
 	}
@@ -127,7 +123,9 @@ public class Team{
 		temp+="*** Team name: "+getName()+"\n";
 		temp+="*** Main trainer: "+getMainTrainer().getName()+"\n";
 		for(int i=0;i<techAssistant.length;i++){
+			if(techAssistant[i]!=null){
 			info+= "\n"+techAssistant[i].getName()+"\n";
+			}
 		}
 		temp+="***Trainer Assisstents: "+info;	
 		
@@ -156,12 +154,13 @@ public class Team{
 	}
 	
 	public String getLineUpInformation(){
-		String temp=getLineUpInfo();
+		String temp="";
+		for(int i=0;i<iLineUp;i++){
+		temp+=lineUp.get(i).getLineUpInfo();
+		temp+=lineUp.get(i).getMatrixFormation();
+		}
 		return temp;
 	}
 	
-	public String getFormationMatrix(){
-		String temp=lineUp.getMatrixFormation();
-		return temp;
-	}
+	
 }

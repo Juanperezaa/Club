@@ -9,6 +9,7 @@ public class LineUp{
 	public LineUp(String date,String formationIndicator, int tacticI){
 		this.date=date;
 		this.formationIndicator=formationIndicator;
+		this.tacticI=tacticI;
 		tactic=Tactic.values()[tacticI-1];
 		fieldFormation=new int[10][7];
 	}
@@ -25,7 +26,7 @@ public class LineUp{
 		return formationIndicator;
 	}
 	
-	public void 
+	
 	
 	public int getTacticIndicator(){
 		return tacticI;
@@ -35,31 +36,38 @@ public class LineUp{
 		String temp="";
 		temp+="*********Line Up**********\n";
 		temp+="* Date: "+getDate()+"\n";
-		temp+="* Tactic: "+Tactic.values()[tacticI-1]+"\n";
-		temp+="* Formation: "+countPlayers(formationIndicator);
+		temp+="* Tactic: "+getEnumeration()+"\n";
+		temp+="* Formation: "+countPlayers();
 		
 		return temp;
 		
+	}
+	
+	public String getEnumeration(){
+		String temp="";
+		temp=tactic.toString();
+		return temp;
 	}
 	
 
 	
 	public String showFormation(){
-		String temp="";
+	String temp="*"+formationIndicator+"\n";
 		for(int i=0;i<10;i++){
 			for(int j=0;j<7;j++){
-				temp+=fieldFormation[i][j];
+				
+				temp+=fieldFormation[i][j]+" ";
 			}
+			temp+="\n";
 		}
 		return temp;
 	}
 	
 	public int[] knowFormation(){
-		String[] temp;
+		String[] temp=formationIndicator.split("-");
 		int[] digits=new int[temp.length];
-		temp=formationIndicator.split("-");
 		for(int i=0;i<temp.length;i++){
-			digits[i]=(int)temp[i];
+			digits[i]=Integer.parseInt(temp[i]);
 		}
 		return digits;
 	}
@@ -72,11 +80,11 @@ public class LineUp{
 	
 	
 	
-	public int setFormationColumns(){
+	public int[] setFormationColumns(){
 		
-		int[] temp=knowFormation(formationIndicator);
-		for(i=0;i<7;i++){
-			for(int j=0;j<10;j++){
+		int[] temp=knowFormation();
+		for(int i=0;i<10;i++){
+			for(int j=0;j<7;j++){
 				fieldFormation[i][j]=0;
 			}
 		}
@@ -110,51 +118,52 @@ public class LineUp{
 			default:
 			break;
 		}
+		return temp;
 	}
 	
 	public void setFormationRow(int row,int temp){
 		switch(temp){
 			case 1: 
-					fieldFormation[row][4]=1;
+					fieldFormation[row][3]=1;
 			break;
 			case 2: 
-					fieldFormation[row][2]=1;
-					fieldFormation[row][6]=1;
+					fieldFormation[row][1]=1;
+					fieldFormation[row][5]=1;
 			break;
 			case 3:
-					fieldFormation[row][2]=1;
-					fieldFormation[row][4]=1;
-					fieldFormation[row][6]=1;
+					fieldFormation[row][1]=1;
+					fieldFormation[row][3]=1;
+					fieldFormation[row][5]=1;
 			break;
 			case 4:
+					fieldFormation[row][1]=1;
 					fieldFormation[row][2]=1;
-					fieldFormation[row][3]=1;
+					fieldFormation[row][4]=1;
 					fieldFormation[row][5]=1;
-					fieldFormation[row][6]=1;
 			break;
 			case 5:
+					fieldFormation[row][1]=1;
 					fieldFormation[row][2]=1;
 					fieldFormation[row][3]=1;
 					fieldFormation[row][4]=1;
 					fieldFormation[row][5]=1;
-					fieldFormation[row][6]=1;
 			break;
 			case 6:
+					fieldFormation[row][0]=1;
 					fieldFormation[row][1]=1;
 					fieldFormation[row][2]=1;
-					fieldFormation[row][3]=1;
+					fieldFormation[row][4]=1;
 					fieldFormation[row][5]=1;
 					fieldFormation[row][6]=1;
-					fieldFormation[row][7]=1;
 			break;
 			case 7:
+					fieldFormation[row][0]=1;
 					fieldFormation[row][1]=1;
 					fieldFormation[row][2]=1;
 					fieldFormation[row][3]=1;
 					fieldFormation[row][4]=1;
 					fieldFormation[row][5]=1;
 					fieldFormation[row][6]=1;
-					fieldFormation[row][7]=1;
 			break;
 			default: 
 			break;
@@ -165,30 +174,30 @@ public class LineUp{
 	}
 	
 	public String countPlayers(){
-		setFormationColumns(formationIndicator);
+		setFormationColumns();
 		int defenders=0;
 		int mid=0;
 		int front=0;
 		String players=formationIndicator;
 		
 		for(int i=0;i<4;i++){
-			for(int j=0;j<7;){
+			for(int j=0;j<7;j++){
 				if(fieldFormation[i][j]==1){
-					front++
+					front++;
 				}
 			}
 		}
 		for(int i=4;i<7;i++){
 			for(int j=0; j<7;j++){
 				if(fieldFormation[i][j]==1){
-					mid++
+					mid++;
 				}
 			}
 		}
 		for(int i=7;i<10;i++){
 			for(int j=0;j<7;j++){
-			if(fieldFormation[i][j]){
-				defenders++
+			if(fieldFormation[i][j]==1){
+				defenders++;
 			}
 			}
 		}
